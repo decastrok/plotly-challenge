@@ -1,3 +1,4 @@
+console.log("hello")
 function buildMetadata(sample) {
 
   // @TODO: Complete the following function that builds the metadata panel
@@ -14,7 +15,9 @@ function buildMetadata(sample) {
   // Hint: Inside the loop, you will need to use d3 to append new
   // tags for each key-value in the metadata.
   d3.json(metadataURL).then(function (data) {
-    Object.entries(data).forEach(([key, value]) => { panelMetadata.append("h6").text(`${key}: ${value}`) })
+    Object.entries(data).forEach((key, value) => {
+      panelMetadata.append("h6").text(`${key}: ${value}`);
+    })
   });
   // BONUS: Build the Gauge Chart
   // buildGauge(data.WFREQ);
@@ -39,14 +42,16 @@ function buildCharts(sample) {
         colorscale: "Earth"
       }
     };
-    var trace1 = chart;
+    var trace1 = [chart];
     var layout = {
-      showlegend: true,
+      showlegend: false,
+      hovermode: "closest",
       height: 500,
       width: 1400
     };
 
     Plotly.newPlot('bubble', trace1, layout);
+
 
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
@@ -58,12 +63,12 @@ function buildCharts(sample) {
       type: 'pie'
     }];
 
-    var layout = {
+    var layout2 = {
       showlegend: true,
-      hovertext:
+      hovertext: "closest"
     };
 
-    Plotly.newPlot("pie", trace2, layout);
+    Plotly.newPlot("pie", trace2, layout2);
   }
   )
 };
